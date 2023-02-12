@@ -20,7 +20,7 @@ const ARRAY_VALORES = [
     'wa', 'n', 'wo'
     ];
 
-let contador = 0;
+let contador = 46;
 
 
 document.addEventListener("DOMContentLoaded", main);
@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", main);
 function main() {
 
     //Recogemos los diversos elementos del DOM
+    let numRestantes = document.getElementById("numRestantes");
     let lblAcierto = document.getElementById("lblAcierto");
     let lblError = document.getElementById("lblError");
     let numAciertos = document.getElementById("numAciertos");
@@ -42,6 +43,8 @@ function main() {
 
     //Eliminamos numero del array
     ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
+    if (numRestantes) numRestantes.textContent = contador;
+
 
     if (imgCaracter) imgCaracter.src = `img/${numAleatorio}.png`;
 
@@ -68,17 +71,20 @@ function main() {
 }
 
 function comprobarCaracter() {
-    let numImagen = imgCaracter.src.split('/').pop().split('.')[0];
 
-    //Comprobamos el valor introducido
-    if (tbRespuesta.value.toLowerCase() === ARRAY_VALORES[numImagen]) numAciertos.textContent = parseInt(numAciertos.textContent) + 1;
-    else numFallos.textContent = parseInt(numFallos.textContent) + 1;
+    if (contador) {
+        let numImagen = imgCaracter.src.split('/').pop().split('.')[0];
 
-    //Generamos un valor aleatorio para mostrar la imagen
-    let numAleatorio = Math.floor(Math.random() * ARRAY_NUMERICO.length);
-    imgCaracter.src = `img/${numAleatorio}.png`;
+        //Comprobamos el valor introducido
+        if (tbRespuesta.value.toLowerCase() === ARRAY_VALORES[numImagen]) numAciertos.textContent = parseInt(numAciertos.textContent) + 1;
+        else numFallos.textContent = parseInt(numFallos.textContent) + 1;
 
-    //Eliminamos numero del array
-    ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
+        //Generamos un valor aleatorio para mostrar la imagen
+        let numAleatorio = Math.floor(Math.random() * ARRAY_NUMERICO.length);
+        imgCaracter.src = `img/${numAleatorio}.png`;
 
+        //Eliminamos numero del array
+        ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
+        numRestantes.textContent = --contador;
+    } else alert("Ya se han introducido todos los caracteres");
 }
