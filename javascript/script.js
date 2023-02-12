@@ -1,6 +1,6 @@
-const DEBUG = true
+const DEBUG = false
 
-const ARRAY_NUMERICO = 
+let ARRAY_NUMERICO = 
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
     11, 12, 13, 14, 15, 16, 17, 18, 19,
     20, 21, 22, 23, 24, 25, 26, 27, 28, 
@@ -20,32 +20,65 @@ const ARRAY_VALORES = [
     'wa', 'n', 'wo'
     ];
 
+let contador = 0;
+
 
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
-    if (DEBUG) console.log("Hello World!");
 
     //Recogemos los diversos elementos del DOM
     let lblAcierto = document.getElementById("lblAcierto");
     let lblError = document.getElementById("lblError");
+    let numAciertos = document.getElementById("numAciertos");
+    let numFallos = document.getElementById("numFallos");
     let imgCaracter = document.getElementById("imgCaracter");
+    let formEntrada = document.getElementById("formEntrada");
     let tbRespuesta = document.getElementById("tbRespuesta");
     let btnEnviar = document.getElementById("btnEnviar");
 
+    //Generamos numero aleatorio
+    let numAleatorio = Math.floor(Math.random() * ARRAY_NUMERICO.length);
 
-    if (lblAcierto && lblError && imgCaracter && tbRespuesta && btnEnviar) {
+    //Eliminamos numero del array
+    ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
 
-        if (DEBUG) console.log("correcto");
+    if (imgCaracter) imgCaracter.src = `img/${numAleatorio}.png`;
+
+
+    if (lblAcierto && lblError && numAciertos && numFallos && imgCaracter && tbRespuesta && btnEnviar) {
+
+        formEntrada.addEventListener('submit', e => { e.preventDefault() });
+
+        tbRespuesta.addEventListener('keyup', e => {
+            if (e.code === "Enter") {
+                comprobarCaracter();
+                tbRespuesta.value = "";
+            };
+        });
 
         btnEnviar.addEventListener("click", () => {
+            comprobarCaracter();
+            tbRespuesta.focus();
+            tbRespuesta.value = "";
+        });
 
-            let numImagen = imgCaracter.src.split('/').pop().split('.')[0];
+    }
 
-            if (DEBUG) console.log(numImagen);
-            if (DEBUG) console.log(ARRAY_VALORES[numImagen]);
-        })
+}
 
-    } else console.log ("Error");
+function comprobarCaracter() {
+    let numImagen = imgCaracter.src.split('/').pop().split('.')[0];
+
+    //Comprobamos el valor introducido
+    if (tbRespuesta.value.toLowerCase() === ARRAY_VALORES[numImagen]) numAciertos.textContent = parseInt(numAciertos.textContent) + 1;
+    else numFallos.textContent = parseInt(numFallos.textContent) + 1;
+
+    //Generamos un valor aleatorio para mostrar la imagen
+    let numAleatorio = Math.floor(Math.random() * ARRAY_NUMERICO.length);
+    imgCaracter.src = `img/${numAleatorio}.png`;
+
+    //Eliminamos numero del array
+    ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
 
 }
