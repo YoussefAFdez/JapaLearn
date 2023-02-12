@@ -31,6 +31,10 @@ main {
     width: 100%;
 }
 
+.img-wrapper img {
+    width: 100%;
+}
+
 .form-envio {
     align-items: center;
     display: flex;
