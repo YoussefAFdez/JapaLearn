@@ -1,12 +1,14 @@
-const DEBUG = false
+const DEBUG = true;
 
-let ARRAY_NUMERICO = 
+//Almacena la posicion de los diferentes elementos de ARRAY_VALORES
+let arrayNumerico = 
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
     11, 12, 13, 14, 15, 16, 17, 18, 19,
     20, 21, 22, 23, 24, 25, 26, 27, 28, 
     29, 30, 31, 32, 33, 34, 35, 36, 37, 
     38, 39, 40, 41, 42, 43, 44, 45];
 
+//Valor real de cara caracter
 const ARRAY_VALORES = [
     'a', 'i', 'u', 'e', 'o',
     'ka', 'ki', 'ku', 'ke', 'ko',
@@ -20,14 +22,15 @@ const ARRAY_VALORES = [
     'wa', 'n', 'wo'
     ];
 
-let contador = 46;
+//Variable que lleva la cuenta de los caracteres restantes
+let contador = 47;
 
 
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
 
-    //Recogemos los diversos elementos del DOM
+    // Recogemos los diversos elementos del DOM
     let numRestantes = document.getElementById("numRestantes");
     let lblAcierto = document.getElementById("lblAcierto");
     let lblError = document.getElementById("lblError");
@@ -38,53 +41,70 @@ function main() {
     let tbRespuesta = document.getElementById("tbRespuesta");
     let btnEnviar = document.getElementById("btnEnviar");
 
-    //Generamos numero aleatorio
-    let numAleatorio = Math.floor(Math.random() * ARRAY_NUMERICO.length);
+    //Generamos el primer caracter
+    generarImagen(imgCaracter, numRestantes, btnEnviar, numAciertos, numFallos);
 
-    //Eliminamos numero del array
-    ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
-    if (numRestantes) numRestantes.textContent = contador;
+    //Comprobamos la existencia de todos los elementos
+    if (numRestantes && lblAcierto && lblError && numAciertos && numFallos && imgCaracter && formEntrada && tbRespuesta && btnEnviar) {
 
-
-    if (imgCaracter) imgCaracter.src = `img/${numAleatorio}.png`;
-
-
-    if (lblAcierto && lblError && numAciertos && numFallos && imgCaracter && tbRespuesta && btnEnviar) {
-
+        //Cancelamos el submit al pulsar enter
         formEntrada.addEventListener('submit', e => { e.preventDefault() });
 
+        //Detectamos cuando pulsamos enter en el textbox
         tbRespuesta.addEventListener('keyup', e => {
-            if (e.code === "Enter") {
-                comprobarCaracter();
-                tbRespuesta.value = "";
-            };
+            if (e.code === "Enter") comprobarCaracter(tbRespuesta, imgCaracter, numAciertos, numFallos, numRestantes, btnEnviar);
         });
 
+        //Compobamos caracter al pulsar el boton o recargamos la pagina al final
         btnEnviar.addEventListener("click", () => {
-            comprobarCaracter();
-            tbRespuesta.focus();
-            tbRespuesta.value = "";
+            if (contador) comprobarCaracter(tbRespuesta, imgCaracter, numAciertos, numFallos, numRestantes, btnEnviar);
+            else location.reload();
         });
 
     }
 
 }
 
-function comprobarCaracter() {
+//
+function comprobarCaracter(nodoEntrada, nodoImagen, nodoAciertos, nodoFallos, nodoRestantes, nodoBtnEnviar) {
 
     if (contador) {
-        let numImagen = imgCaracter.src.split('/').pop().split('.')[0];
+        //Extraemos el numero de la imagen actual para encontrar su equivalente en letra
+        let numImagen = nodoImagen.src.split('/').pop().split('.')[0];
 
         //Comprobamos el valor introducido
-        if (tbRespuesta.value.toLowerCase() === ARRAY_VALORES[numImagen]) numAciertos.textContent = parseInt(numAciertos.textContent) + 1;
-        else numFallos.textContent = parseInt(numFallos.textContent) + 1;
+        if (nodoEntrada.value.toLowerCase() === ARRAY_VALORES[numImagen]) nodoAciertos.textContent = parseInt(nodoAciertos.textContent) + 1;
+        else nodoFallos.textContent = parseInt(nodoFallos.textContent) + 1;
 
-        //Generamos un valor aleatorio para mostrar la imagen
-        let numAleatorio = Math.floor(Math.random() * ARRAY_NUMERICO.length);
-        imgCaracter.src = `img/${numAleatorio}.png`;
+        generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, nodoFallos);
 
-        //Eliminamos numero del array
-        ARRAY_NUMERICO =  ARRAY_NUMERICO.filter(item => item != ARRAY_NUMERICO[numAleatorio]);
-        numRestantes.textContent = --contador;
     } else alert("Ya se han introducido todos los caracteres");
+
+    //Actualizamos el texbox dejandolo en blanco y cargando el foco
+    nodoEntrada.focus();
+    nodoEntrada.value = "";
+}
+
+
+// Esta funcion genera un numero aleatorio y elimina dicha imagen del array imagenes
+function generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, nodoFallos) {
+    
+    //Generamos un numero aleatorio de 0 al ultimo elemento del array numerico.
+    let numAleatorio = Math.floor(Math.random() * arrayNumerico.length);
+
+    //Nos quedamos con el numero que la posicion del array representa
+    let valorNumerico = arrayNumerico[numAleatorio];
+
+    // Reducimos el contador para evitar cambiar la imagen cuando no queden elementos.
+    nodoRestantes.textContent = --contador;
+
+    //Actualizamos la imagen mientras queden caracteres y vamos vaciando el array.
+    if (contador) {
+        nodoImagen.src = `img/${valorNumerico}.png`;
+        arrayNumerico = arrayNumerico.filter(item => item != valorNumerico);
+    } else {
+        //Actualizamos 
+        nodoBtnEnviar.textContent = "Recargar";
+        alert(`Has terminado con todos los caracteres. Has tenido ${nodoAciertos.textContent} aciertos y ${nodoFallos.textContent} errores`);
+    }
 }
