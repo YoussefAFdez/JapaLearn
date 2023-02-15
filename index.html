@@ -6,10 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Learning Japanese Characters</title>
         <link rel="stylesheet" href="css/style.css">
-        <script src="javascript/scriptNoID.js"></script>
+        <script src="javascript/script.js"></script>
     </head>
     <body>
         <main>
+            <div class="flotante" id="flotante">
+                <div class="carta">
+                    <div class="img-wrapper">
+                        <input type="image" src="img/Hiragana/0.svg" alt="Hiragana A" id="btnHiragana">
+                    </div>
+                    <h2>Hiragana</h2>
+                </div>
+                <div class="carta">
+                    <div class="img-wrapper">
+                        <input type="image" src="img/Katakana/0.svg" alt="Katakana A" id="btnKatakana">
+                    </div>
+                    <h2>Katakana</h2>
+                </div>
+            </div>
             <div class="wrapper">
                 <h1>Hiragana Generator</h1>
                 <h2 class="restantes">Letras restantes: <span id="numRestantes"></span></h2>
@@ -18,7 +32,7 @@
                     <h2 id="lblError">Fallos: <span id="numFallos">0</span></h2>
                 </div>
                 <div class="img-wrapper">
-                    <img src="" alt="Hiragana Character" id="imgCaracter">
+                    <img src="" alt="Japanese Character" id="imgCaracter">
                 </div>
                 <form action="" class="form-envio" id="formEntrada">
                     <input type="text" name="tbRespuesta" id="tbRespuesta" class="tb-respuesta">

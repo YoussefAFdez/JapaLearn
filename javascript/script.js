@@ -40,9 +40,29 @@ function main() {
     let formEntrada = document.getElementById("formEntrada");
     let tbRespuesta = document.getElementById("tbRespuesta");
     let btnEnviar = document.getElementById("btnEnviar");
+    let btnHiragana = document.getElementById("btnHiragana");
+    let btnKatakana = document.getElementById("btnKatakana");
+    let nodoFlotante = document.getElementById("flotante");
 
-    //Generamos el primer caracter
-    generarImagen(imgCaracter, numRestantes, btnEnviar, numAciertos, numFallos);
+    
+
+    //Seleccionamos modo de juego
+    let modo;
+
+    btnHiragana.addEventListener("click", () => {
+        modo = 0;
+        nodoFlotante.classList.add("oculto");
+        //Generamos el primer caracter
+        generarImagen(imgCaracter, numRestantes, btnEnviar, numAciertos, numFallos, modo);
+    });
+
+    btnKatakana.addEventListener("click", () => {
+        modo = 1;
+        nodoFlotante.classList.add("oculto");
+        //Generamos el primer caracter
+        generarImagen(imgCaracter, numRestantes, btnEnviar, numAciertos, numFallos, modo);
+    });
+    
 
     //Comprobamos la existencia de todos los elementos
     if (numRestantes && lblAcierto && lblError && numAciertos && numFallos && imgCaracter && formEntrada && tbRespuesta && btnEnviar) {
@@ -52,21 +72,23 @@ function main() {
 
         //Detectamos cuando pulsamos enter en el textbox
         tbRespuesta.addEventListener('keyup', e => {
-            if (e.code === "Enter") comprobarCaracter(tbRespuesta, imgCaracter, numAciertos, numFallos, numRestantes, btnEnviar);
+            if (e.code === "Enter") comprobarCaracter(tbRespuesta, imgCaracter, numAciertos, numFallos, numRestantes, btnEnviar, modo);
         });
 
         //Compobamos caracter al pulsar el boton o recargamos la pagina al final
         btnEnviar.addEventListener("click", () => {
-            if (contador) comprobarCaracter(tbRespuesta, imgCaracter, numAciertos, numFallos, numRestantes, btnEnviar);
+            if (contador) comprobarCaracter(tbRespuesta, imgCaracter, numAciertos, numFallos, numRestantes, btnEnviar, modo);
             else location.reload();
         });
+
+        
 
     }
 
 }
 
 //
-function comprobarCaracter(nodoEntrada, nodoImagen, nodoAciertos, nodoFallos, nodoRestantes, nodoBtnEnviar) {
+function comprobarCaracter(nodoEntrada, nodoImagen, nodoAciertos, nodoFallos, nodoRestantes, nodoBtnEnviar, modo) {
 
     if (contador) {
         //Extraemos el numero de la imagen actual para encontrar su equivalente en letra
@@ -76,7 +98,7 @@ function comprobarCaracter(nodoEntrada, nodoImagen, nodoAciertos, nodoFallos, no
         if (nodoEntrada.value.toLowerCase() === ARRAY_VALORES[numImagen]) nodoAciertos.textContent = parseInt(nodoAciertos.textContent) + 1;
         else nodoFallos.textContent = parseInt(nodoFallos.textContent) + 1;
 
-        generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, nodoFallos);
+        generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, nodoFallos, modo);
 
     } else alert("Ya se han introducido todos los caracteres");
 
@@ -87,7 +109,7 @@ function comprobarCaracter(nodoEntrada, nodoImagen, nodoAciertos, nodoFallos, no
 
 
 // Esta funcion genera un numero aleatorio y elimina dicha imagen del array imagenes
-function generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, nodoFallos) {
+function generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, nodoFallos, modo) {
     
     //Generamos un numero aleatorio de 0 al ultimo elemento del array numerico.
     let numAleatorio = Math.floor(Math.random() * arrayNumerico.length);
@@ -100,7 +122,7 @@ function generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, n
 
     //Actualizamos la imagen mientras queden caracteres y vamos vaciando el array.
     if (contador) {
-        nodoImagen.src = `img/${valorNumerico}.png`;
+        nodoImagen.src = `img/${!modo ? "Hiragana" : "Katakana"}/${valorNumerico}.png`;
         arrayNumerico = arrayNumerico.filter(item => item != valorNumerico);
     } else {
         //Actualizamos 

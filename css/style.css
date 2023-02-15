@@ -13,6 +13,43 @@ main {
     display: flex;
     justify-content: center;
     height: 100vh;
+    position: relative;
+}
+
+.oculto {
+    visibility: hidden;
+}
+
+.flotante {
+    align-items: center;
+    background-color: #fff;
+    border: 5px solid var(--morado);
+    border-radius: 20px;
+    box-shadow: 5px 10px 10px black;
+    display: flex;
+    gap: 30px;
+    height: 450px;
+    justify-content: space-evenly;
+    position: absolute;
+    width: 800px;
+}
+
+.carta {
+    text-align: center;
+    width: 250px;
+}
+
+.img-wrapper input[type=image] {
+    width: 100%;
+}
+
+.carta > .img-wrapper {
+    transition: transform 0.1s ease-in-out;
+}
+
+.carta > .img-wrapper:hover {
+    transform: scale(1.1);
+    background-color: lightgray;
 }
 
 .wrapper {
@@ -31,7 +68,6 @@ main {
 .img-wrapper {
     border: 4px solid black;
     border-radius: 30px;
-    height: 500px;
     width: 100%;
 }
 
