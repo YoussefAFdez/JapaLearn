@@ -122,7 +122,7 @@ function generarImagen(nodoImagen, nodoRestantes, nodoBtnEnviar, nodoAciertos, n
 
     //Actualizamos la imagen mientras queden caracteres y vamos vaciando el array.
     if (contador) {
-        nodoImagen.src = `img/${!modo ? "Hiragana" : "Katakana"}/${valorNumerico}.png`;
+        nodoImagen.src = `img/${!modo ? "Hiragana" : "Katakana"}/${valorNumerico}.svg`;
         arrayNumerico = arrayNumerico.filter(item => item != valorNumerico);
     } else {
         //Actualizamos 

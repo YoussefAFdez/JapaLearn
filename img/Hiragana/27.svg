@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xml:lang="ja" version="1.1" width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+<title>ふ（分離）</title>
+
+<desc>1画目と2画目が分離した平仮名の「ふ」</desc>
+
+<metadata>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<rdf:Description rdf:about="">
+		<dc:title xml:lang="ja">ふ（分離）</dc:title>
+		<dc:creator rdf:resource="https://meta.wikimedia.org/?curid=10484470"/>
+		<dc:subject rdf:datatype="http://ndl.go.jp/dcndl/terms/NIISubject">芸術</dc:subject>
+		<dc:description xml:lang="ja">1画目と2画目が分離した平仮名の「ふ」</dc:description>
+		<dc:date rdf:datatype="http://www.w3.org/2001/XMLSchemadate">2019-07-16</dc:date>
+		<dc:type rdf:datatype="http://purl.org/dc/terms/DCMIType">StillImage</dc:type>
+		<dc:format rdf:datatype="http://purl.org/dc/terms/IMT">image/svg+xml</dc:format>
+		<dc:source rdf:resource="https://upload.wikimedia.org/wikipedia/ja/6/6a/%E3%81%B50001.png"/>
+		<dc:language rdf:datatype="http://purl.org/dc/terms/ISO639-2">jpn</dc:language>
+		<dc:rights>© 2019, B̅ &gt;cmplstofB&lt;</dc:rights>
+		<dc:rights rdf:resource="http://www.wtfpl.net/about/"/>
+	</rdf:Description>
+</rdf:RDF>
+</metadata>
+
+<g fill="none" stroke="currentColor" stroke-width="18" transform="translate(0,-866.51965)">
+<path d="m 97.442402,895.15405 66.671118,36.75459 -24.3606,23.07846" stroke-linejoin="bevel"/>
+<path d="m 100.43405,974.64653 c 0,0 76.42889,61.21147 55.98665,102.14357 -11.32284,22.672 -76.500835,9.4024 -76.500835,9.4024"/>
+<path d="m 14.958264,1078.0722 c 0,0 23.45112,-15.1862 34.617696,-23.9332 11.429301,-8.9528 32.90818,-29.0617 32.90818,-29.0617"/>
+<path d="m 196.59432,996.87023 c 0,0 16.01846,19.58287 26.92488,38.46407 8.43975,14.6109 19.65943,42.3106 19.65943,42.3106"/>
+</g>
+</svg>

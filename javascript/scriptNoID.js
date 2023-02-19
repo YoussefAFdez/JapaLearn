@@ -77,7 +77,7 @@ function generaImagen() {
 
     //Actualizamos la imagen mientras queden caracteres y vamos vaciando el array.
     if (contador) {
-        imgCaracter.src = `img/${valorNumerico}.png`;
+        imgCaracter.src = `img/${valorNumerico}.svg`;
         arrayNumerico = arrayNumerico.filter(item => item != valorNumerico);
     }
 }
